@@ -29,7 +29,7 @@ public class JWTUtils {
         // 使用 HMAC256 算法生成带有声明和过期时间的令牌
         return JWT.create()
                 .withClaim("claims", claims)
-                .withExpiresAt(new Date((System.currentTimeMillis() + 1000 * 60 * 60 * 12)))
+                .withExpiresAt(new Date((System.currentTimeMillis() + 1000 * 60 * 60 * 2)))
                 .sign(Algorithm.HMAC256(KEY));
     }
 
