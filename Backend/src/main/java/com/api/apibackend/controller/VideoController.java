@@ -2,6 +2,7 @@ package com.api.apibackend.controller;
 
 import com.api.apibackend.pojo.*;
 import com.api.apibackend.pojo.DTO.UploadVideoDTO;
+import com.api.apibackend.pojo.DTO.UserVideoDTO;
 import com.api.apibackend.pojo.DTO.VideoInfoDTO;
 import com.api.apibackend.service.UserService;
 import com.api.apibackend.service.VideoLikeService;
