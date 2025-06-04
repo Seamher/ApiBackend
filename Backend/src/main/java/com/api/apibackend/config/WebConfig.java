@@ -34,8 +34,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("Adding loginInterceptors to InterceptorRegistry");
         // 添加 loginInterceptors 拦截器，并排除注册和登录路径
-        registry.addInterceptor(loginInterceptors).excludePathPatterns("/user/login/student", "/user/login/teacher", "/user/login/administrator", "/uploading/courses", "/uploading/users/student", "/uploading/course-selection", "/uploading/teach", "/uploading/users/teacher");
-        logger.info("loginInterceptors added with excluded paths: /user/login/student, /user/login/teacher, /user/login/administrator, /uploading/courses, /uploading/users/student, /uploading/course-selection, /uploading/teach, /uploading/users/teacher");
+        registry.addInterceptor(loginInterceptors).excludePathPatterns("/user", "/login");
+        logger.info("loginInterceptors added with excluded paths: /user, /login");
     }
 
     /**
