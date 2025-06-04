@@ -1,6 +1,7 @@
 package com.api.apibackend.controller;
 
 import com.api.apibackend.pojo.ApiResponse;
+import com.api.apibackend.pojo.DTO.TokenDTO;
 import com.api.apibackend.pojo.User;
 import com.api.apibackend.pojo.Video;
 import com.api.apibackend.service.UserService;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<ApiResponse<String>> login(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<Object>> login(@RequestBody User user) {
         String username = user.getUsername();
         String password = user.getPassword();
         logger.info("Login attempt for account: {}", username);
@@ -74,8 +75,9 @@ public class UserController {
                 logger.info("User logged in successfully: {}", username);
                 var token = JWTUtils.genToken(claims);
                 logger.warn("User token: {}", token);
+                TokenDTO tokenDTO = new TokenDTO(token, userLogin.getId());
 
-                return ApiResponse.ok(200, token);
+                return ApiResponse.ok(200, tokenDTO);
 
             } else {
                 logger.warn("Login failed. Incorrect password for account: {}", username);

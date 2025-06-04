@@ -23,4 +23,12 @@ public class Video {
 
     private Integer userId;
 
+    public Video(String title, String description, String url, Integer userId, Integer likes) {
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.likes = likes;
+        this.userId = userId;
+    }
+
 }
