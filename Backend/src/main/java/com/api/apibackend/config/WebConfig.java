@@ -1,6 +1,7 @@
 package com.api.apibackend.config;
 
 
+import com.api.apibackend.LoggingInterceptor;
 import com.api.apibackend.interceptors.LoginInterceptors;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -32,10 +33,10 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        logger.info("Adding loginInterceptors to InterceptorRegistry");
         // 添加 loginInterceptors 拦截器，并排除注册和登录路径
         registry.addInterceptor(loginInterceptors).excludePathPatterns("/user", "/login");
-        logger.info("loginInterceptors added with excluded paths: /user, /login");
+        registry.addInterceptor(new LoggingInterceptor())
+                .addPathPatterns("/**"); // 拦截所有请求路径
     }
 
     /**
