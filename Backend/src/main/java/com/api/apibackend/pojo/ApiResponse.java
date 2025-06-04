@@ -39,6 +39,10 @@ public class ApiResponse<T> {
         return ApiResponse.error(404, ErrorDetail.userNotExist);
     }
 
+    public static <T> ResponseEntity<ApiResponse<T>> videoNotExistError() {
+        return ApiResponse.error(404, ErrorDetail.videoNotExist);
+    }
+
     public static <T> ResponseEntity<ApiResponse<T>> noMoreUnseenError() {
         return ApiResponse.error(400, ErrorDetail.noMoreUnseen);
     }
