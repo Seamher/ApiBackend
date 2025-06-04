@@ -17,7 +17,6 @@ import java.util.*;
 
 @Validated
 @RestController
-@RequestMapping
 public class UserController {
 
     private final UserService userService;
@@ -46,7 +45,7 @@ public class UserController {
 
             return ApiResponse.usernameUsedError();
         } else {
-            User user = new User(null, username, password);
+            User user = new User(username, password);
             userService.save(user);
 
             return ApiResponse.ok(200, null);
@@ -87,27 +86,25 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/user")
-    public ResponseEntity<ApiResponse<Object>> logout(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
-        String password = request.get("password");
-        logger.info("logout attempt for account: {}", username);
+    public ResponseEntity<ApiResponse<Object>> deleteUser(@RequestParam Integer userId,
+                                                      @RequestParam String password) {
+        logger.info("logout attempt for account: {}", userId);
 
         // 验证用户是否存在
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", username);
-        User userRegister = userService.getOne(queryWrapper);
+        User userRegister = userService.getById(userId);
         if (userRegister == null) {
-            logger.warn("logout failed. User don't exit: {}", username);
+            logger.warn("logout failed. User don't exit: {}", userId);
 
             return ApiResponse.userNotExistError();
         } else if (!Objects.equals(password, userRegister.getPassword())) {
-            logger.warn("logout failed. Password wrong: {}", username);
+            logger.warn("logout failed. Password wrong: {}", userId);
 
             return ApiResponse.wrongPasswordError();
         } else {
-            logger.warn("User logout successfully: {}", username);
+            logger.warn("User logout successfully: {}", userId);
 
-            return ApiResponse.ok(204, null);
+
+            return ApiResponse.ok(200, null);
         }
     }
 

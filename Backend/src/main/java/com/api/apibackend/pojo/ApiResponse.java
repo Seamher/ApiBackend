@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 @Setter
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL) // 忽略为 null 的字段
 public class ApiResponse<T> {
 
     // HTTP 状态码
