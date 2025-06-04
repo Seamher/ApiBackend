@@ -8,8 +8,6 @@ import com.api.apibackend.service.VideoLikeService;
 import com.api.apibackend.service.VideoService;
 import com.api.apibackend.service.VideoViewService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +33,6 @@ public class VideoController {
         this.videoLikeService =videoLikeService;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     /**
      * 获取视频信息
@@ -99,6 +96,7 @@ public class VideoController {
             VideoView videoView = videoViewService.getOne(queryWrapper);
             if(videoView == null){
                 // 当前用户没看过该视频
+                videoViewService.save(new VideoView(userId,video.getId()));
                 // 获取视频作者
                 QueryWrapper<User> queryWrapperUser = new QueryWrapper<>();
                 queryWrapperUser.eq("id", video.getUserId());
@@ -205,7 +203,7 @@ public class VideoController {
         }
         //取消未点赞视频
         QueryWrapper<VideoLike> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", videoId).eq("user_id", userId);
+        queryWrapper.eq("video_id", videoId).eq("user_id", userId);
         VideoLike videoLike = videoLikeService.getOne(queryWrapper);
         if(videoLike == null){
             return ApiResponse.unlikeUnlikedError();
