@@ -76,6 +76,7 @@ public class VideoController {
                 return ApiResponse.ok(200, video);
             }
         }
+        return ApiResponse.noMoreUnseenError();
     }
 
 
